@@ -1,6 +1,7 @@
 package com.suru.plugins
 
 import com.suru.models.BranchRequest
+import com.suru.routes.branchRouting
 import com.suru.services.BranchService
 import com.suru.services.TestService
 import io.ktor.http.HttpStatusCode
@@ -26,10 +27,6 @@ fun Application.configureRouting() {
             val user = call.request.queryParameters["user"] ?: throw InvalidUserNameException()
             call.respondText(testService.greetUser(user))
         }
-        post("/branch") {
-            val request = call.receive<BranchRequest>()
-            val response = branchService.create(request)
-            call.respond(HttpStatusCode.Created, response)
-        }
+        branchRouting(branchService)
     }
 }
