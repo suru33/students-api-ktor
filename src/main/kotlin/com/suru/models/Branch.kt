@@ -5,20 +5,14 @@ import java.time.LocalDateTime
 import java.util.UUID
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.timestamp
-
-data class Branch(
-    val id: UUID,
-    val shortName: String,
-    val name: String,
-)
+import org.jetbrains.exposed.sql.javatime.datetime
 
 object Branches : Table("branch") {
     val id = uuid("b_id")
     val shortName = varchar("b_short_name", 10)
     val name = varchar("b_name", 100)
-    val createdAt = timestamp("b_created_at")
-    val updatedAt = timestamp("b_updated_at")
+    val createdAt = datetime("b_created_at")
+    val updatedAt = datetime("b_updated_at")
 
     override val primaryKey = PrimaryKey(id)
 }
